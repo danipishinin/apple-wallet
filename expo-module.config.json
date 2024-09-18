@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "tvos", "android", "web"],
+  "ios": {
+    "modules": ["AppleWalletModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.applewallet.AppleWalletModule"]
+  }
+}
