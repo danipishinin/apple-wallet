@@ -1,35 +1,20 @@
-import { Button, StyleSheet, Text, View } from "react-native";
-
 import * as AppleWallet from "apple-wallet";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
+//AppleWallet.isWalletAvailable() == true
 export default function App() {
-  const [isCompatible, setIsCompatible] = useState(false);
-  const [canAddCard, setCanAddCard] = useState(false);
+  const [hasCard, setHasCard] = useState(false);
+  useEffect(() => {
+    AppleWallet.isAvailableToAddCardInAppleWallet("112345").then((result) => {
+      setHasCard(result);
+    });
+  }, []);
   return (
     <View style={styles.container}>
       <Text>{AppleWallet.hello()}</Text>
-      <Text>Dispositivo é compatível com a Wallet?</Text>
-      <Button
-        onPress={async () => {
-          await AppleWallet.isDeviceEligibleForAppleWallet().then((r) => {
-            setIsCompatible(r);
-          }).catch((e) => console.log("deu ruim ne", e));
-        }}
-        title="Checar"
-      />
-      <Text>{isCompatible ? "Sim" : "Não"}</Text>
-
-      <Text>Posso adicionar cartões na wallet?</Text>
-      <Button
-        onPress={async () => {
-          await AppleWallet.canAddCardOnWallet().then((r) => {
-            setCanAddCard(r);
-          }).catch((e) => console.log("deu ruim ne", e));
-        }}
-        title="Checar"
-      />
-      <Text>{canAddCard ? "Sim" : "Não"}</Text>
+      {hasCard &&  <Button onPress={() => {}} title="isAvailableToAddCardInAppleWallet" />
+      
+       }
     </View>
   );
 }

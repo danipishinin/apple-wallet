@@ -21,12 +21,16 @@ export async function setValueAsync(value: string) {
   return await AppleWalletModule.setValueAsync(value);
 }
 
-export async function isDeviceEligibleForAppleWallet(): Promise<boolean> {
-  return AppleWalletModule.isDeviceEligibleForAppleWallet();
+export async function isAvailableToAddCardInAppleWallet(serialNumber: string) {
+  return AppleWalletModule.isAvailableToAddCardInAppleWallet(serialNumber);
 }
 
-export async function canAddCardOnWallet(): Promise<boolean> {
-  return AppleWalletModule.canAddCardOnWallet();
+export async function isWalletAvailable(): Promise<boolean> {
+  return AppleWalletModule.isWalletAvailable();
+}
+
+export function isCardAlreadyExists(serialNumber: string): boolean {
+  return AppleWalletModule.isCardAlreadyExists(serialNumber);
 }
 
 const emitter = new EventEmitter(

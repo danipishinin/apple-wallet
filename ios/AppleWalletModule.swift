@@ -15,7 +15,7 @@ public class AppleWalletModule: Module {
     Constants([
       "PI": Double.pi
     ])
-
+  let controller = AppleWalletController()
     // Defines event names that the module can send to JavaScript.
     Events("onChange")
 
@@ -24,15 +24,17 @@ public class AppleWalletModule: Module {
       return "Um Bolinho 👋"
     }
 
-    // STEP 1 check if wallet is available on device
-      Function("isDeviceEligibleForAppleWallet")  {
-          return PKPassLibrary.isPassLibraryAvailable()
-      }
-      
-    // STEP 2 Check check if device is eligibility to Add a Payment Card to Apple Pay
-      Function("canAddCardOnWallet"){
-          return PKAddPassesViewController.canAddPasses()
-      }
+      AsyncFunction("isAvailableToAddCardInAppleWallet") { (serialNumber: String) -> Bool in
+          return try await controller.isAvailableToAddCardInAppleWallet(serialNumber: serialNumber)
+    }
+
+     AsyncFunction("isWalletAvailable") { () async -> Bool in
+      return await controller.isWalletAvailable();
+    }
+
+      Function("isCardAlreadyExists") { (serialNumber: String)  -> Bool in
+          return controller.isCardAlreadyExists(serialNumber: serialNumber);
+    }
 
     // Defines a JavaScript function that always returns a Promise and whose native code
     // is by default dispatched on the different thread than the JavaScript runtime runs on.
