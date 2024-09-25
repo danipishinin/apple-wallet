@@ -32,6 +32,17 @@ export async function isWalletAvailable(): Promise<boolean> {
 export function isCardAlreadyExists(serialNumber: string): boolean {
   return AppleWalletModule.isCardAlreadyExists(serialNumber);
 }
+export function isOpenPaymentSetup() {
+  return AppleWalletModule.isOpenPaymentSetup();
+}
+
+export function testeViewController() {
+  return AppleWalletModule.testeViewController();
+}
+
+// export function initEnrollProcess(cardHolder: string, panTokenSuffix: string) {
+//   return AppleWalletModule.initEnrollProcess(cardHolder, panTokenSuffix);
+// }
 
 const emitter = new EventEmitter(
   AppleWalletModule ?? NativeModulesProxy.AppleWallet,

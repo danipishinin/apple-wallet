@@ -36,6 +36,10 @@ public class AppleWalletModule: Module {
           return controller.isCardAlreadyExists(serialNumber: serialNumber);
     }
 
+    Function("isOpenPaymentSetup"){
+      return PKPassLibrary().openPaymentSetup()
+    }
+
     // Defines a JavaScript function that always returns a Promise and whose native code
     // is by default dispatched on the different thread than the JavaScript runtime runs on.
     AsyncFunction("setValueAsync") { (value: String) in

@@ -12,9 +12,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>{AppleWallet.hello()}</Text>
-      {hasCard &&  <Button onPress={() => {}} title="isAvailableToAddCardInAppleWallet" />
-      
-       }
+      {hasCard && (
+        <>
+          <Button
+            onPress={() => {
+              AppleWallet.isOpenPaymentSetup();
+            }}
+            title="isAvailableToAddCardInAppleWallet"
+          />
+          {AppleWallet.AppleWalletView({ name: "AppleWalletView" })}
+        </>
+      )}
     </View>
   );
 }
